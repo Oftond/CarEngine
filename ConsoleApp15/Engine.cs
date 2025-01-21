@@ -20,4 +20,6 @@ abstract class Engine
 
     public abstract void Start(float TAir);
     public abstract void Stop();
+
+    public abstract event Action OnUpdate;
 }
