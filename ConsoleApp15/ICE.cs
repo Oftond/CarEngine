@@ -48,7 +48,7 @@ class ICE : Engine
                 Vh = M * _hm + V * V * _hv;
                 Vc = _c * (TAir - _curTemp);
 
-                _curTemp += Vh - Vc;
+                _curTemp += Vh + Vc;
                 V += a;
                 M = (V - _v[i]) * (_m[i + 1] - _m[i]) / (_v[i + 1] - _v[i]) + _m[i];
                 OnUpdate?.Invoke();

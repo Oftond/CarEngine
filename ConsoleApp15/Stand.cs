@@ -4,31 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-class Stand
+abstract class Stand
 {
-    ushort TimeToWork;
-    public static ICE _Ice;
+    public abstract int MaxWorkTime { get; }
+    protected Engine _engine;
+    protected ushort _workTime = 0;
+    protected int _maxTime;
 
-    public Stand(ref ICE _ice)
+    protected Stand(ref Engine engine, int maxTime)
     {
-        _ice.OnUpdate += Check;
-        _Ice = _ice;
-        TimeToWork = 0;
+        _engine = engine;
+        _maxTime = maxTime;
+        _engine.OnUpdate += Update;
     }
 
-    public void StartSimulation(float _temAir)
-    {
-        _Ice.Start(_temAir);
-    }
+    public abstract void Update();
 
-    public void Check()
-    {
-        TimeToWork++;
-        if (_Ice.EngineTemp >= 110)
-        {
-            Console.WriteLine("Двигатель перегрелся!");
-            Console.WriteLine($"Двигатель проработал {TimeToWork} секунд!");
-            _Ice.Stop();
-        }
-    }
+    public abstract float StartSimulation(float TAir);
 }
